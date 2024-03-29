@@ -9,10 +9,28 @@
 
     grid.PrintGrid();
 
-    player1.AddToken(grid, 1);
-    player1.AddToken(grid, 1);
 
-    grid.PrintGrid();
+    int playCount = 0;
+
+
+    Player currentPlayer = player1;
+    int column;
+    while (true)
+    {
+      Console.WriteLine("Enter a column for {0}", currentPlayer);
+      column = int.Parse(Console.ReadLine());
+
+      if (grid.IsColumnFull(column))
+      {
+        grid.PrintGrid(true);
+      }
+      else
+      {
+        currentPlayer.AddToken(column);
+        playCount++;
+        currentPlayer = playCount % 2 == 0 ? player1 : player2;
+      }
+    }
 
     // string? input;
 

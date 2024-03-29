@@ -13,19 +13,15 @@ class Player
     return player;
   }
 
-  public bool AddToken(Grid grid, int col)
+  public void AddToken(int col)
   {
-    if (grid.IsColumnFull(col))
-    {
-      return false;
-    }
-    if (col < 1 || col > 7)
-    {
-      return false;
-    }
-
+    //necessary checks will be done before this function is called
     grid.AddToken(new Token(this), col - 1);
-    return true;
+  }
+
+  public override string ToString()
+  {
+    return player == 1 ? "X" : "O";
   }
 
 }
