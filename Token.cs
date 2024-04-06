@@ -1,6 +1,6 @@
 class Token
 {
-  private Player player;
+  private readonly Player player;
 
   public Token(Player player)
   {
@@ -9,6 +9,6 @@ class Token
 
   public override string ToString()
   {
-    return player.GetPlayer() == 1 ? "X" : "O";
+    return player.ToString();
   }
 }

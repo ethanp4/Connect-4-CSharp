@@ -5,7 +5,11 @@ class Game
 
   public Game(int playerCount)
   {
-
+    players = new Player[playerCount];
+    for (int i = 0; i < playerCount; i++)
+    {
+      players[i] = new Player(grid, i + 1);
+    }
   }
 
   public void Play()
@@ -19,22 +23,35 @@ class Game
     int playCount = 0;
 
     Player currentPlayer = player1;
+    string? input;
     int column;
+    
     while (!CheckWin())
     {
       Console.WriteLine("Enter a column for {0}", currentPlayer);
-      column = int.Parse(Console.ReadLine());
 
+      input = Console.ReadLine();
+
+      //if it was not an int or was out of range
+      if (!int.TryParse(input, out column) || column < 1 || column > 7)
+      {
+        grid.PrintGrid(2);
+        continue;
+      }
+
+      //if it was an int but the column is full
       if (grid.IsColumnFull(column))
       {
-        grid.PrintGrid(true);
+        grid.PrintGrid(1);
+        continue;
       }
-      else
-      {
-        currentPlayer.AddToken(column);
-        playCount++;
-        currentPlayer = playCount % 2 == 0 ? player1 : player2;
-      }
+
+      grid.PrintGrid();
+
+      currentPlayer.AddToken(column);
+      playCount++;
+      currentPlayer = playCount % 2 == 0 ? player1 : player2;
+
     }
   }
 

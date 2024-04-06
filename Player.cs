@@ -1,17 +1,26 @@
 class Player
 {
-  private readonly int player;
+  private readonly bool player;
   private readonly Grid grid;
   public Player(Grid grid, int player)
   {
+    //the datatype of bool but this constructor will take in an int instead
+    switch (player)
+    {
+      case 1:
+        this.player = true;
+        break;
+      case 2:
+        this.player = false;
+        break;
+    }
     this.grid = grid;
-    this.player = player;
   }
 
-  public int GetPlayer()
-  {
-    return player;
-  }
+  // public string GetPlayer()
+  // {
+  //   return player ? "X" : "O";
+  // }
 
   public void AddToken(int col)
   {
@@ -21,7 +30,7 @@ class Player
 
   public override string ToString()
   {
-    return player == 1 ? "X" : "O";
+    return player ? "X" : "O";
   }
 
 }

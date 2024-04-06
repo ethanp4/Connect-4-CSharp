@@ -9,13 +9,18 @@ class Grid
 
   private Token[,] grid = new Token[rows, cols];
 
-  public void PrintGrid(bool fullColumn = false)
+  public void PrintGrid(int errorMsg = 0)
   {
     Console.Clear();
 
-    if (fullColumn)
+    switch (errorMsg)
     {
-      Console.WriteLine("That column is full or doesnt exist\n");
+      case 1:
+        Console.WriteLine("That column is full\n");
+        break;
+      case 2:
+        Console.WriteLine("Enter a number between 1 and 7\n");
+        break;
     }
 
     for (int r = 0; r < rows; r++)
@@ -35,6 +40,8 @@ class Grid
   public void AddToken(Token token, int col)
   {
     int desiredRow = 0;
+
+    //this finds the lowest row that is empty
     for (int r = rows - 1; r >= 0; r--)
     {
       if (grid[r, col] == null)
@@ -44,6 +51,8 @@ class Grid
       }
     }
 
+    //this "moves" the token downwards from the top of the grid
+    //updating each time to animate it
     for (int i = 0; i <= desiredRow; i++)
     {
       if (i != 0)
@@ -59,10 +68,6 @@ class Grid
 
   public bool IsColumnFull(int col)
   {
-    if (col < 1 || col > cols)
-    {
-      return true;
-    }
     return grid[0, col - 1] != null;
   }
 }
