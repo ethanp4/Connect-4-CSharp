@@ -23,10 +23,11 @@ class Game
     int playCount = 0;
 
     Player currentPlayer = player1;
+    Player prevPlayer = player1;
     string? input;
     int column;
-    
-    while (!CheckWin())
+
+    do
     {
       Console.WriteLine("Enter a column for {0}", currentPlayer);
 
@@ -50,13 +51,10 @@ class Game
 
       currentPlayer.AddToken(column);
       playCount++;
+      prevPlayer = currentPlayer;
       currentPlayer = playCount % 2 == 0 ? player1 : player2;
+      System.Console.WriteLine(grid.CheckWin(prevPlayer.ToString()));
+    } while (!grid.CheckWin(prevPlayer.ToString()));
 
-    }
-  }
-
-  public bool CheckWin()
-  {
-    return false;
   }
 }

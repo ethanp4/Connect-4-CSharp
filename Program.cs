@@ -12,18 +12,18 @@
 
     while (!int.TryParse(input, out players) || (players != 1 && players != 2))
     {
-      Console.Clear();
+      // Console.Clear();
       Console.WriteLine("Enter 1 or 2");
       input = Console.ReadLine();
     }
 
-    Console.Clear();
+    // Console.Clear();
     PrintStringCharByChar("Connect 4");
-    Thread.Sleep(1500);
+    // Thread.Sleep(1500);
 
-    Console.Clear();
+    // Console.Clear();
     PrintStringCharByChar(String.Format("Starting with {0} {1}", players, players == 1 ? "player" : "players"));
-    Thread.Sleep(1500);
+    // Thread.Sleep(1500);
 
     Game game = new(players);
 
@@ -37,7 +37,7 @@
     foreach (char c in str)
     {
       Console.Write(c);
-      Thread.Sleep(40);
+      // Thread.Sleep(40);
     }
   }
 }

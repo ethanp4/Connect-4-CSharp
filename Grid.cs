@@ -1,5 +1,3 @@
-using System.Runtime.CompilerServices;
-
 class Grid
 {
   // 6 rows, 7 columns
@@ -11,7 +9,7 @@ class Grid
 
   public void PrintGrid(int errorMsg = 0)
   {
-    Console.Clear();
+    // Console.Clear();
 
     switch (errorMsg)
     {
@@ -69,5 +67,35 @@ class Grid
   public bool IsColumnFull(int col)
   {
     return grid[0, col - 1] != null;
+  }
+
+  public bool CheckWin(string player)
+  {
+    // check horizontally
+    int count = 0;
+    for (int r = 0; r <= 6; r++)
+    {
+      for (int c = 0; c <= 5; c++)
+      {
+        if (count >= 4)
+        {
+          return true;
+        }
+        try
+        {
+          if (grid[r, c].ToString() == player && grid[r - 1, c].ToString() == player)
+          {
+            count++;
+          }
+          else
+          {
+            count = 0;
+          }
+        }
+        catch (Exception) { }
+      }
+    }
+
+    return false;
   }
 }
