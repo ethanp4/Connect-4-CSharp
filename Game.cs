@@ -12,7 +12,7 @@ class Game
     }
   }
 
-  public void Play()
+  public bool Play()
   {
     Grid grid = new Grid();
     Player player1 = new Player(grid, 1);
@@ -23,10 +23,10 @@ class Game
     int playCount = 0;
 
     Player currentPlayer = player1;
-    Player prevPlayer = player1;
+    Player prevPlayer;
     string? input;
-    int column;
 
+    int column;
     do
     {
       Console.WriteLine("Enter a column for {0}", currentPlayer);
@@ -48,13 +48,25 @@ class Game
       }
 
       grid.PrintGrid();
-
       currentPlayer.AddToken(column);
+
       playCount++;
       prevPlayer = currentPlayer;
       currentPlayer = playCount % 2 == 0 ? player1 : player2;
-      System.Console.WriteLine(grid.CheckWin(prevPlayer.ToString()));
-    } while (!grid.CheckWin(prevPlayer.ToString()));
 
+      if (playCount >= 42)
+      {
+        Console.WriteLine("Draw!");
+        Console.WriteLine("Play again? (y/n)");
+        return Console.ReadLine() == "y";
+      }
+
+      if (grid.CheckWin(char.Parse(prevPlayer.ToString())))
+      {
+        Console.WriteLine("Player {0} has won!", prevPlayer);
+        Console.WriteLine("Play again? (y/n)");
+        return Console.ReadLine() == "y";
+      }
+    } while (true);
   }
 }

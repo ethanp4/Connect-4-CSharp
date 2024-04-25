@@ -4,12 +4,11 @@ class Grid
   const int rows = 6;
   const int cols = 7;
 
-
   private Token[,] grid = new Token[rows, cols];
 
   public void PrintGrid(int errorMsg = 0)
   {
-    // Console.Clear();
+    Console.Clear();
 
     switch (errorMsg)
     {
@@ -63,27 +62,66 @@ class Grid
     }
   }
 
-
   public bool IsColumnFull(int col)
   {
     return grid[0, col - 1] != null;
   }
 
-  public bool CheckWin(string player)
+  public bool CheckWin(char player)
   {
-    // check horizontally
-    int count = 0;
-    for (int r = 0; r <= 6; r++)
+    //check for horizontal win    
+    //iterate each row
+    for (int r = 0; r < rows; r++)
     {
-      for (int c = 0; c <= 5; c++)
+      int count = 0;
+      //iterate each column in that row
+      for (int c = 0; c < cols; c++)
       {
+        if ((grid[r, c] == null ? '#' : char.Parse(grid[r, c].ToString())) == player)
+        {
+          count++;
+        }
+        else
+        {
+          count = 0;
+        }
         if (count >= 4)
         {
           return true;
         }
-        try
+      }
+    }
+
+    // check for vertical win
+    for (int c = 0; c < cols; c++)
+    {
+      int count = 0;
+      for (int r = 0; r < rows; r++)
+      {
+        if ((grid[r, c] == null ? '#' : char.Parse(grid[r, c].ToString())) == player)
         {
-          if (grid[r, c].ToString() == player && grid[r - 1, c].ToString() == player)
+          count++;
+        }
+        else
+        {
+          count = 0;
+        }
+        if (count >= 4)
+        {
+          return true;
+        }
+      }
+    }
+
+    // check for diagonal win from top left to bottom right
+    for (int r = 0; r < rows - 3; r++)
+    {
+      for (int c = 0; c < cols - 3; c++)
+      {
+        int count = 0;
+        for (int i = 0; i < 4; i++)
+        {
+          if ((grid[r + i, c + i] == null ? '#' : char.Parse(grid[r + i, c + i].ToString())) == player)
           {
             count++;
           }
@@ -91,11 +129,37 @@ class Grid
           {
             count = 0;
           }
+          if (count >= 4)
+          {
+            return true;
+          }
         }
-        catch (Exception) { }
       }
     }
 
+    // check for diagonal win from top right to bottom left
+    for (int r = 0; r < rows - 3; r++)
+    {
+      for (int c = 3; c < cols; c++)
+      {
+        int count = 0;
+        for (int i = 0; i < 4; i++)
+        {
+          if ((grid[r + i, c - i] == null ? '#' : char.Parse(grid[r + i, c - i].ToString())) == player)
+          {
+            count++;
+          }
+          else
+          {
+            count = 0;
+          }
+          if (count >= 4)
+          {
+            return true;
+          }
+        }
+      }
+    }
     return false;
   }
 }

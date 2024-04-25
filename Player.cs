@@ -17,11 +17,6 @@ class Player
     this.grid = grid;
   }
 
-  // public string GetPlayer()
-  // {
-  //   return player ? "X" : "O";
-  // }
-
   public void AddToken(int col)
   {
     //necessary checks will be done before this function is called
